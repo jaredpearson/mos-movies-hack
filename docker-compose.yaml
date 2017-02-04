@@ -1,0 +1,21 @@
+version: '3'
+services:
+    web:
+        build: .
+        ports:
+          - "8080:80"
+        volumes:
+          - ./public:/var/www/public
+        links:
+          - postgres
+
+    postgres:
+        build: postgres
+        environment:
+          - PGDATA=/var/lib/postgresql/data/pgdata
+          - POSTGRES_PASSWORD=secretpassword
+        volumes:
+          - data-volume:/var/lib/postgresql/data
+
+volumes:
+    data-volume:

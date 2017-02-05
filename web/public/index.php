@@ -1,39 +1,8 @@
 <?hh
 namespace movies;
 
-require_once '../vendor/autoload.php';
-require_once '../lib/db.php';
-
-class Movie {
-    public int $id;
-    public string $title;
-
-    public function __construct($id, $title) {
-        $this->id = $id;
-        $this->title = $title;
-    }
-}
-
-function loadMovies(): Vector<Movie> {
-    return withDb($cnn ==> {
-        $movies = Vector{};
-        $result = pg_query($cnn, "SELECT movies_id, title FROM movies ORDER BY title");
-        while ($row = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-            $movies->add(new Movie($row["movies_id"], $row["title"]));
-        }
-        pg_free_result($result);
-        return $movies;
-    });
-}
-
-function saveMovie(string $title) : int {
-    return withDb($cnn ==> {
-        $result = pg_query_params($cnn, "INSERT INTO movies (title) VALUES ($1) RETURNING movies_id", array($title));
-        $newMovieId = (int)pg_fetch_row($result)[0];
-        pg_free_result($result);
-        return $newMovieId;
-    });
-}
+require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../lib/movies.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST) && !empty($_POST['title'])) {
@@ -41,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$movieEls = loadMovies()->map($movie ==> {
+$movieEls = loadMoviesPage()->movies->map($movie ==> {
     return 
         <div>
             <div>

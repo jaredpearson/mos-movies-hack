@@ -1,6 +1,6 @@
 <?hh
 
-require_once '../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 function withDb<T>((function(resource):T) $workFn) :T {
     $cnn = pg_connect("host=postgres dbname=mosmovies user=webapp password=mosmovies");

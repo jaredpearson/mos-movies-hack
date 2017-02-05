@@ -3,10 +3,10 @@ services:
     web:
         build: web
         ports:
-          - "8080:80"
+          - "8081:80"
         volumes:
-          - ./web/public:/var/www/app/public
-          - ./web/lib:/var/www/app/lib
+          - ./web/public:/var/www/app/public:ro
+          - ./web/lib:/var/www/app/lib:ro
         links:
           - postgres
 
@@ -17,6 +17,11 @@ services:
           - POSTGRES_PASSWORD=secretpassword
         volumes:
           - data-volume:/var/lib/postgresql/data
+
+    nginx:
+        build: nginx
+        ports:
+          - "8080:80"
 
 volumes:
     data-volume:

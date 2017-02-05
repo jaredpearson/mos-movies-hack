@@ -6,3 +6,16 @@ body {
     padding-top: 10px;
     padding-right: 1em;
 }
+
+.table-movies {
+    display: table;
+}
+.table-movies > div {
+    display: table-row
+}
+.table-movies > div > div {
+    display: table-cell;
+}
+.table-movies > div:nth-child(even) > div {
+    background: #eaeaea;
+}

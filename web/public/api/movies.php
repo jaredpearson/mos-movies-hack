@@ -9,12 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($requestBody)) {
         http_response_code(400);
         echo json_encode(Map {'error' => 'Missing JSON body'});
+        exit();
     }
 
     $requestAsJson = json_decode($requestBody, true);
     if (empty($requestAsJson['title'])) {
         http_response_code(400);
         echo json_encode(Map {'error' => 'Missing required attribute: title'});
+        exit();
     } else {
         $newMovieId = saveMovie($requestAsJson['title']);
         echo json_encode(loadMovieById($newMovieId));
@@ -22,6 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 } else {
 
-    $movies = loadMoviesPage();
-    echo json_encode($_GET);
+    $moviePage = loadMoviesPage();
+    echo json_encode($moviePage);
 }

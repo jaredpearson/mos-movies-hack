@@ -39,9 +39,18 @@ function loadMoviesPage(): MoviePage {
     });
 }
 
+function loadMovieById(int $movieId) : Movie {
+    return withDb($cnn ==> {
+        $result = pg_query_params($cnn, "SELECT movies_id, title FROM movies WHERE movies_id=$1::integer LIMIT 1", array($movieId));
+        $row = pg_fetch_array($result, null, PGSQL_ASSOC);
+        pg_free_result($result);
+        return new Movie($row["movies_id"], $row["title"]);
+    });
+}
+
 function saveMovie(string $title) : int {
     return withDb($cnn ==> {
-        $result = pg_query_params($cnn, "INSERT INTO movies (title) VALUES ($1) RETURNING movies_id", array($title));
+        $result = pg_query_params($cnn, "INSERT INTO movies (title) VALUES ($1::text) RETURNING movies_id", array($title));
         $newMovieId = (int)pg_fetch_row($result)[0];
         pg_free_result($result);
         return $newMovieId;

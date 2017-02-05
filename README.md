@@ -15,3 +15,9 @@ To get the list of movies:
 ```
 curl http://localhost:8080/api/v1/movies
 ```
+
+Add a new movie to the list:
+
+```
+curl http://localhost:8080/api/v1/movies -X POST -H "Content-Type: application/json" -d '{"title":"High Noon"}'
+```

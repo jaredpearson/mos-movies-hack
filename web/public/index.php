@@ -1,8 +1,8 @@
 <?hh
 namespace movies;
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
-require_once 'db.php';
+require_once '../vendor/autoload.php';
+require_once '../lib/db.php';
 
 class Movie {
     public int $id;

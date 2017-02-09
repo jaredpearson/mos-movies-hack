@@ -8,8 +8,7 @@ require_once __DIR__.'/../../lib/movies.php';
 class MoviesApiController {
     public function get() {
         $moviePage = Movies\loadMoviesPage();
-        echo json_encode(Movies\loadMovieById(-1));
-        //echo json_encode($moviePage);
+        echo json_encode($moviePage);
     }
 
     public function post() {

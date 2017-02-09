@@ -1,13 +1,13 @@
 <?hh
 
 namespace Movies\Api\Controllers;
-use \Movies\Data\Movies;
+use \Movies\Data;
 
 require_once __DIR__.'/../../lib/movies.php';
 
 class MoviesApiController {
     public function get() {
-        $moviePage = Movies\loadMoviesPage();
+        $moviePage = Data\loadMoviesPage();
         echo json_encode($moviePage);
     }
 
@@ -25,8 +25,8 @@ class MoviesApiController {
             echo json_encode(Map {'error' => 'Missing required attribute: title'});
             exit();
         } else {
-            $newMovieId = Movies\saveMovie($requestAsJson['title']);
-            echo json_encode(Movies\loadMovieById($newMovieId));
+            $newMovieId = Data\saveMovie($requestAsJson['title']);
+            echo json_encode(Data\loadMovieById($newMovieId));
         }
     }
 }

@@ -1,6 +1,6 @@
 <?hh
-namespace Movies\Controllers\Index;
-use \Movies\Data\Movies;
+namespace Movies\Controllers;
+use \Movies\Data;
 
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/../lib/movies.php';
@@ -12,13 +12,13 @@ class IndexController {
 
     public function post() {
         if (!empty($_POST) && !empty($_POST['title'])) {
-            Movies\saveMovie($_POST['title']);
+            Data\saveMovie($_POST['title']);
         }
         $this->renderView();
     }
 
     private function renderView() {
-        $movieEls = Movies\loadMoviesPage()->movies->map($movie ==> {
+        $movieEls = Data\loadMoviesPage()->movies->map($movie ==> {
             return 
                 <div>
                     <div>
@@ -37,7 +37,7 @@ class IndexController {
         </head>
         <body>
         <div style="margin-bottom: 1em;">
-            <form action="index.php" method="post">
+            <form action="/" method="post">
                 <div style="display: table">
                     <div style="display: table-row">
                         <div style="display: table-cell">Title:</div>

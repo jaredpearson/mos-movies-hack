@@ -1,6 +1,6 @@
 <?hh
 
-namespace Movies\Data\Movies;
+namespace Movies\Data;
 
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/db.php';

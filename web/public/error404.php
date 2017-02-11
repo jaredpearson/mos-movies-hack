@@ -1,5 +1,7 @@
 <?hh
 require_once __DIR__.'/../vendor/autoload.php';
+
+http_response_code(404);
 echo '<!DOCTYPE html>';
 echo 
 <html>
